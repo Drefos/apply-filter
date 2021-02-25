@@ -9,8 +9,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("view/view.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root/*, 1000, 800*/));
+        primaryStage.setTitle("Apply filter v1.0");
+        primaryStage.setScene(new Scene(root));
         primaryStage.setMinWidth(700);
         primaryStage.setMinHeight(370);
         primaryStage.show();
