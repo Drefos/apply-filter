@@ -34,7 +34,7 @@
                <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
             </ScrollPane>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <VBox maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="200.0" prefHeight="375.0" prefWidth="200.0">
+            <VBox fx:id="filters" disable="true" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="200.0" prefHeight="375.0" prefWidth="200.0">
                <children>
                   <Label text="Function filters">
                      <VBox.margin>
