@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="750.0" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+         <Menu mnemonicParsing="false" text="File">
+            <MenuItem fx:id="openMenuItem" mnemonicParsing="false" text="Open" />
+            <MenuItem fx:id="saveAsMenuItem" disable="true" mnemonicParsing="false" text="Save As..." />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" text="Close" />
+         </Menu>
+      </MenuBar>
+   </top>
+   <center>
+      <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="750.0" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="775.0" prefWidth="538.0" HBox.hgrow="ALWAYS">
+               <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
+            </ScrollPane>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="200.0" prefHeight="375.0" prefWidth="200.0">
+               <children>
+                  <Label text="Function filters">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <RadioButton fx:id="inversionRadioButton" mnemonicParsing="false" selected="true" text="Inversion">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="function" />
+                     </toggleGroup>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="brightnessRadioButton" mnemonicParsing="false" text="Brightness correction" toggleGroup="$function">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="contrastRadioButton" mnemonicParsing="false" text="Contrast enhancement" toggleGroup="$function">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="gammaRadioButton" mnemonicParsing="false" text="Gamma correction" toggleGroup="$function">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <Button fx:id="functionFilterButton" mnemonicParsing="false" text="Apply filters">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <Label prefHeight="17.0" prefWidth="200.0" text="Convolution filters" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <RadioButton fx:id="blurRadioButton" mnemonicParsing="false" selected="true" text="Blur">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="convolution" />
+                     </toggleGroup>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="gaussianRadioButton" mnemonicParsing="false" text="Gaussian blur" toggleGroup="$convolution">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="sharpenRadioButton" mnemonicParsing="false" text="Sharpen" toggleGroup="$convolution">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="edgeRadioButton" mnemonicParsing="false" text="Edge detection" toggleGroup="$convolution">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="embossRadioButton" mnemonicParsing="false" text="Emboss" toggleGroup="$convolution">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <Button fx:id="convolutionFilterButton" mnemonicParsing="false" text="Apply filters" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="200.0" prefHeight="375.0" prefWidth="250.0" />
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
