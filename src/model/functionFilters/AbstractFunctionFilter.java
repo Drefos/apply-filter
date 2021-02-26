@@ -5,13 +5,8 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-import model.Filter;
 
-public class GammaFilter implements Filter {
-
-    public static double GAMMA_FACTOR = 1.1;
-
-    @Override
+public abstract class AbstractFunctionFilter {
     public Image filterImage(Image oldImage) {
         WritableImage newImage = new WritableImage((int)oldImage.getWidth(), (int)oldImage.getHeight());
         PixelWriter writer = newImage.getPixelWriter();
@@ -25,11 +20,9 @@ public class GammaFilter implements Filter {
         return newImage;
     }
 
-    private Color calculateColor(double red, double green, double blue) {
-        return Color.color(adjust(Math.pow(red, GAMMA_FACTOR)), adjust(Math.pow(green, GAMMA_FACTOR)), adjust(Math.pow(blue, GAMMA_FACTOR)));
-    }
+    protected abstract Color calculateColor(double red, double green, double blue);
 
-    private double adjust(double n) {
+    protected double adjust(double n) {
         if(n<0) return 0.0;
         if(n>1) return 1.0;
         return n;
