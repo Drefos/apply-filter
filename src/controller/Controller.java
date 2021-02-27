@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,7 +15,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.IOException;
 
 public class Controller {
 
@@ -72,6 +76,7 @@ public class Controller {
     @FXML
     private Button convolutionFilterButton;
 
+    private boolean isSaved = true;
     private static Stage stage;
 
     public static void setStage(Stage s) {
@@ -107,6 +112,7 @@ public class Controller {
         saveAsMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                saveImg();
             }
         });
 
@@ -115,6 +121,31 @@ public class Controller {
             public void handle(ActionEvent event) {
             }
         });
+    }
+
+    private boolean saveImg() {
+        FileChooser imageSaver = new FileChooser();
+        imageSaver.setTitle("Save image");
+        imageSaver.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PNG Files", "*.png"),
+                new FileChooser.ExtensionFilter("BMP Files", "*.bmp"),
+                new FileChooser.ExtensionFilter("GIF Files", "*.gif"));
+        File f = imageSaver.showSaveDialog(null);
+        if(f!=null) {
+            try {
+                RenderedImage renderedImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+                String extension = f.getName().substring(1+f.getName().lastIndexOf(".")).toLowerCase();
+                ImageIO.write( renderedImage, extension, f);
+                isSaved = true;
+                return true;
+            } catch (IOException ioe) {
+                // Error with saving
+                return false;
+            }
+        } else {
+            // saving canceled
+            return false;
+        }
     }
 
 }
