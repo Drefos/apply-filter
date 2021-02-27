@@ -143,11 +143,11 @@ public class Controller {
                 new FileChooser.ExtensionFilter("BMP Files", "*.bmp"),
                 new FileChooser.ExtensionFilter("GIF Files", "*.gif"));
         File f = imageSaver.showSaveDialog(null);
-        if(f!=null) {
+        if (f != null) {
             try {
                 RenderedImage renderedImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
-                String extension = f.getName().substring(1+f.getName().lastIndexOf(".")).toLowerCase();
-                ImageIO.write( renderedImage, extension, f);
+                String extension = f.getName().substring(1 + f.getName().lastIndexOf(".")).toLowerCase();
+                ImageIO.write(renderedImage, extension, f);
                 isSaved = true;
                 return true;
             } catch (IOException ioe) {
@@ -161,12 +161,13 @@ public class Controller {
     }
 
     private void exit() {
-        if(!isSaved) {
+        if (!isSaved) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Do you want to save changes before exiting?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.setTitle("Save your work");
             alert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.YES) {if(saveImg()) System.exit(1);}
-                else if (response == ButtonType.NO) System.exit(1);
+                if (response == ButtonType.YES) {
+                    if (saveImg()) System.exit(1);
+                } else if (response == ButtonType.NO) System.exit(1);
             });
         } else {
             System.exit(1);
@@ -178,11 +179,11 @@ public class Controller {
             @Override
             public void handle(MouseEvent event) {
                 AbstractFunctionFilter functionFilter = new IdentityFunctionFilter();
-                if(inversionRadioButton.isSelected()) {
+                if (inversionRadioButton.isSelected()) {
                     functionFilter = new InverseFunctionFilter();
-                } else if(brightnessRadioButton.isSelected()){
+                } else if (brightnessRadioButton.isSelected()) {
                     functionFilter = new BrightnessFunctionFilter();
-                } else if(contrastRadioButton.isSelected()) {
+                } else if (contrastRadioButton.isSelected()) {
                     functionFilter = new ContrastFunctionFilter();
                 } else if (gammaRadioButton.isSelected()) {
                     functionFilter = new GammaFunctionFilter();
