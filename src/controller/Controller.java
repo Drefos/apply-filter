@@ -87,6 +87,7 @@ public class Controller {
     public void initialize() {
         preConfig();
         configMenu();
+        configFunctionFilters();
     }
 
     private void preConfig() {
