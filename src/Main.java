@@ -1,3 +1,4 @@
+import controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +9,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        Controller.setStage(primaryStage);
         Parent root = FXMLLoader.load(getClass().getResource("view/view.fxml"));
         primaryStage.setTitle("Apply filter v1.0");
         primaryStage.setScene(new Scene(root));
