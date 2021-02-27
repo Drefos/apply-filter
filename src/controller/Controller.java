@@ -7,9 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class Controller {
 
@@ -82,6 +87,20 @@ public class Controller {
         openMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Load image");
+                fileChooser.getExtensionFilters().addAll(
+                        new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"),
+                        new ExtensionFilter("All Files", "*.*"));
+                File selectedFile = fileChooser.showOpenDialog(null);
+                if (selectedFile != null) {
+                    Image image = new Image(selectedFile.toURI().toString());
+                    imageView.setFitHeight(image.getHeight());
+                    imageView.setFitWidth(image.getWidth());
+                    imageView.setImage(image);
+                    saveAsMenuItem.setDisable(false);
+                    filters.setDisable(false);
+                }
             }
         });
 
