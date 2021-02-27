@@ -7,11 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.functionFilters.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
@@ -169,5 +171,25 @@ public class Controller {
         } else {
             System.exit(1);
         }
+    }
+
+    private void configFunctionFilters() {
+        functionFilterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                AbstractFunctionFilter functionFilter = new IdentityFunctionFilter();
+                if(inversionRadioButton.isSelected()) {
+                    functionFilter = new InverseFunctionFilter();
+                } else if(brightnessRadioButton.isSelected()){
+                    functionFilter = new BrightnessFunctionFilter();
+                } else if(contrastRadioButton.isSelected()) {
+                    functionFilter = new ContrastFunctionFilter();
+                } else if (gammaRadioButton.isSelected()) {
+                    functionFilter = new GammaFunctionFilter();
+                }
+                imageView.setImage(functionFilter.filterImage(imageView.getImage()));
+                isSaved = false;
+            }
+        });
     }
 }
