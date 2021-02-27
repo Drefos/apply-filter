@@ -4,16 +4,14 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
@@ -85,7 +83,18 @@ public class Controller {
 
     @FXML
     public void initialize() {
+        preConfig();
         configMenu();
+    }
+
+    private void preConfig() {
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                event.consume();
+                exit();
+            }
+        });
     }
 
     private void configMenu() {
@@ -119,6 +128,7 @@ public class Controller {
         closeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                exit();
             }
         });
     }
@@ -148,4 +158,16 @@ public class Controller {
         }
     }
 
+    private void exit() {
+        if(!isSaved) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Do you want to save changes before exiting?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.setTitle("Save your work");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES) {if(saveImg()) System.exit(1);}
+                else if (response == ButtonType.NO) System.exit(1);
+            });
+        } else {
+            System.exit(1);
+        }
+    }
 }
