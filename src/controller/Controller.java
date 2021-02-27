@@ -7,6 +7,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class Controller {
 
@@ -63,6 +64,12 @@ public class Controller {
 
     @FXML
     private Button convolutionFilterButton;
+
+    private static Stage stage;
+
+    public static void setStage(Stage s) {
+        stage = s;
+    }
 
     @FXML
     public void initialize() {
