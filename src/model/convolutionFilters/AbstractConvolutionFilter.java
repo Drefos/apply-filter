@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 
 public abstract class AbstractConvolutionFilter {
 
-    protected double[] kernel;
+    protected double[][] kernel;
     protected int anchorX;
     protected int anchorY;
     protected double off;
