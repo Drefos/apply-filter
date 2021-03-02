@@ -25,6 +25,9 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" text="Close" />
          </Menu>
+         <Menu mnemonicParsing="false" text="Edit">
+            <MenuItem fx:id="reverseMenuItem" disable="true" mnemonicParsing="false" text="Reverse changes" />
+         </Menu>
       </MenuBar>
    </top>
    <center>
