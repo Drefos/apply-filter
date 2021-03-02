@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.convolutionFilters.*;
 import model.functionFilters.*;
 
 import javax.imageio.ImageIO;
@@ -88,6 +89,7 @@ public class Controller {
         preConfig();
         configMenu();
         configFunctionFilters();
+        configConvolutionFilters();
     }
 
     private void preConfig() {
@@ -190,6 +192,28 @@ public class Controller {
                     functionFilter = new GammaFunctionFilter();
                 }
                 imageView.setImage(functionFilter.filterImage(imageView.getImage()));
+                isSaved = false;
+            }
+        });
+    }
+
+    private void configConvolutionFilters() {
+        convolutionFilterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                AbstractConvolutionFilter convolutionFilter = new IdentityConvolutionFilter();
+                if (blurRadioButton.isSelected()) {
+                    convolutionFilter = new BlurConvolutionFilter();
+                } else if (gaussianRadioButton.isSelected()) {
+                    convolutionFilter = new GBlurConvolutionFilter();
+                } else if (sharpenRadioButton.isSelected()) {
+                    convolutionFilter = new SharpenConvolutionFilter();
+                } else if (edgeRadioButton.isSelected()) {
+                    convolutionFilter = new HEdgeDetectionConvolutionFilter();
+                } else if (embossRadioButton.isSelected()) {
+                    convolutionFilter = new EmbossConvolutionFilter();
+                }
+                imageView.setImage(convolutionFilter.filterImage(imageView.getImage()));
                 isSaved = false;
             }
         });
