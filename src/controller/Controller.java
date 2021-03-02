@@ -13,6 +13,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.convolutionFilters.AbstractConvolutionFilter;
+import model.convolutionFilters.IdentityConvolutionFilter;
 import model.functionFilters.*;
 
 import javax.imageio.ImageIO;
@@ -88,6 +90,7 @@ public class Controller {
         preConfig();
         configMenu();
         configFunctionFilters();
+        configConvolutionFilters();
     }
 
     private void preConfig() {
@@ -190,6 +193,17 @@ public class Controller {
                     functionFilter = new GammaFunctionFilter();
                 }
                 imageView.setImage(functionFilter.filterImage(imageView.getImage()));
+                isSaved = false;
+            }
+        });
+    }
+
+    private void configConvolutionFilters() {
+        convolutionFilterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                AbstractConvolutionFilter convolutionFilter = new IdentityConvolutionFilter();
+                imageView.setImage(convolutionFilter.filterImage(imageView.getImage()));
                 isSaved = false;
             }
         });
