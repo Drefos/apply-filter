@@ -14,6 +14,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.convolutionFilters.AbstractConvolutionFilter;
+import model.convolutionFilters.BlurConvolutionFilter;
 import model.convolutionFilters.IdentityConvolutionFilter;
 import model.functionFilters.*;
 
@@ -203,6 +204,9 @@ public class Controller {
             @Override
             public void handle(MouseEvent event) {
                 AbstractConvolutionFilter convolutionFilter = new IdentityConvolutionFilter();
+                if(blurRadioButton.isSelected()) {
+                    convolutionFilter = new BlurConvolutionFilter();
+                }
                 imageView.setImage(convolutionFilter.filterImage(imageView.getImage()));
                 isSaved = false;
             }
