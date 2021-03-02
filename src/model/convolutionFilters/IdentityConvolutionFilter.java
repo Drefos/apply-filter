@@ -11,7 +11,7 @@ public class IdentityConvolutionFilter extends AbstractConvolutionFilter {
         kernel.anchorX = 1;
         kernel.anchorY = 1;
         off = 0.0;
-        divisor = 9.0;
+        divisor = 1.0;
     }
 }
 
