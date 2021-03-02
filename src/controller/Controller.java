@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.convolutionFilters.AbstractConvolutionFilter;
 import model.convolutionFilters.BlurConvolutionFilter;
+import model.convolutionFilters.GBlurConvolutionFilter;
 import model.convolutionFilters.IdentityConvolutionFilter;
 import model.functionFilters.*;
 
@@ -206,6 +207,8 @@ public class Controller {
                 AbstractConvolutionFilter convolutionFilter = new IdentityConvolutionFilter();
                 if(blurRadioButton.isSelected()) {
                     convolutionFilter = new BlurConvolutionFilter();
+                } else if(gaussianRadioButton.isSelected()) {
+                    convolutionFilter = new GBlurConvolutionFilter();
                 }
                 imageView.setImage(convolutionFilter.filterImage(imageView.getImage()));
                 isSaved = false;
