@@ -208,6 +208,8 @@ public class Controller {
                     convolutionFilter = new GBlurConvolutionFilter();
                 } else if (sharpenRadioButton.isSelected()) {
                     convolutionFilter = new SharpenConvolutionFilter();
+                } else if (edgeRadioButton.isSelected()) {
+                    convolutionFilter = new HEdgeDetectionConvolutionFilter();
                 }
                 imageView.setImage(convolutionFilter.filterImage(imageView.getImage()));
                 isSaved = false;
