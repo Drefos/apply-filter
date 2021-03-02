@@ -13,10 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.convolutionFilters.AbstractConvolutionFilter;
-import model.convolutionFilters.BlurConvolutionFilter;
-import model.convolutionFilters.GBlurConvolutionFilter;
-import model.convolutionFilters.IdentityConvolutionFilter;
+import model.convolutionFilters.*;
 import model.functionFilters.*;
 
 import javax.imageio.ImageIO;
@@ -205,10 +202,12 @@ public class Controller {
             @Override
             public void handle(MouseEvent event) {
                 AbstractConvolutionFilter convolutionFilter = new IdentityConvolutionFilter();
-                if(blurRadioButton.isSelected()) {
+                if (blurRadioButton.isSelected()) {
                     convolutionFilter = new BlurConvolutionFilter();
-                } else if(gaussianRadioButton.isSelected()) {
+                } else if (gaussianRadioButton.isSelected()) {
                     convolutionFilter = new GBlurConvolutionFilter();
+                } else if (sharpenRadioButton.isSelected()) {
+                    convolutionFilter = new SharpenConvolutionFilter();
                 }
                 imageView.setImage(convolutionFilter.filterImage(imageView.getImage()));
                 isSaved = false;
