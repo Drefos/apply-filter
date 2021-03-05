@@ -5,14 +5,27 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import model.Filter;
 
-public abstract class AbstractConvolutionFilter {
+import java.util.Arrays;
+import java.util.Collection;
+
+public abstract class AbstractConvolutionFilter implements Filter {
+    public static final String BLUR = "Blur";
+    public static final String GAUSSIAN = "Gaussian blur";
+    public static final String SHARPEN = "Sharpen";
+    public static final String EDGE = "Horizontal edge detection";
+    public static final String EMBOSS = "Emboss";
 
     protected Kernel kernel;
     protected double off;
     protected double divisor;
     protected int imgWidth;
     protected int imgHeight;
+
+    public static Collection<String> getFiltersNames() {
+        return Arrays.asList(BLUR, GAUSSIAN, SHARPEN, EDGE, EMBOSS);
+    }
 
     public Image filterImage(Image oldImage) {
         this.imgWidth = (int) oldImage.getWidth();

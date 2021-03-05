@@ -5,8 +5,22 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import model.Filter;
 
-public abstract class AbstractFunctionFilter {
+import java.util.Arrays;
+import java.util.Collection;
+
+
+public abstract class AbstractFunctionFilter implements Filter {
+    public static final String INVERSE = "Inversion";
+    public static final String BRIGHTNESS = "Brightness correction";
+    public static final String CONTRAST = "Contrast enhancement";
+    public static final String GAMMA = "Gamma correction";
+
+    public static Collection<String> getFiltersNames() {
+        return Arrays.asList(INVERSE, BRIGHTNESS, CONTRAST, GAMMA);
+    }
+
     public Image filterImage(Image oldImage) {
         WritableImage newImage = new WritableImage((int)oldImage.getWidth(), (int)oldImage.getHeight());
         PixelWriter writer = newImage.getPixelWriter();
