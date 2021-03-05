@@ -115,7 +115,7 @@ public class Controller {
                 fileChooser.getExtensionFilters().addAll(
                         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"),
                         new ExtensionFilter("All Files", "*.*"));
-                File selectedFile = fileChooser.showOpenDialog(null);
+                File selectedFile = fileChooser.showOpenDialog(stage);
                 if (selectedFile != null) {
                     Image image = new Image(selectedFile.toURI().toString());
                     imageView.setFitHeight(image.getHeight());
@@ -157,7 +157,7 @@ public class Controller {
                 new FileChooser.ExtensionFilter("PNG Files", "*.png"),
                 new FileChooser.ExtensionFilter("BMP Files", "*.bmp"),
                 new FileChooser.ExtensionFilter("GIF Files", "*.gif"));
-        File f = imageSaver.showSaveDialog(null);
+        File f = imageSaver.showSaveDialog(stage);
         if (f != null) {
             try {
                 RenderedImage renderedImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
