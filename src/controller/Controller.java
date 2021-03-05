@@ -36,6 +36,9 @@ public class Controller {
     private MenuItem closeMenuItem;
 
     @FXML
+    private MenuItem reverseMenuItem;
+
+    @FXML
     private ImageView imageView;
 
     @FXML
@@ -79,6 +82,7 @@ public class Controller {
 
     private boolean isSaved = true;
     private static Stage stage;
+    private Image savedImg;
 
     public static void setStage(Stage s) {
         stage = s;
@@ -119,6 +123,7 @@ public class Controller {
                     imageView.setImage(image);
                     saveAsMenuItem.setDisable(false);
                     filters.setDisable(false);
+                    savedImg = image;
                 }
             }
         });
@@ -134,6 +139,13 @@ public class Controller {
             @Override
             public void handle(ActionEvent event) {
                 exit();
+            }
+        });
+
+        reverseMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                reverseChanges();
             }
         });
     }
@@ -152,6 +164,8 @@ public class Controller {
                 String extension = f.getName().substring(1 + f.getName().lastIndexOf(".")).toLowerCase();
                 ImageIO.write(renderedImage, extension, f);
                 isSaved = true;
+                savedImg = imageView.getImage();
+                reverseMenuItem.setDisable(true);
                 return true;
             } catch (IOException ioe) {
                 // Error with saving
@@ -177,6 +191,12 @@ public class Controller {
         }
     }
 
+    private void reverseChanges() {
+        imageView.setImage(savedImg);
+        isSaved = true;
+        reverseMenuItem.setDisable(true);
+    }
+
     private void configFunctionFilters() {
         functionFilterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -193,6 +213,7 @@ public class Controller {
                 }
                 imageView.setImage(functionFilter.filterImage(imageView.getImage()));
                 isSaved = false;
+                reverseMenuItem.setDisable(false);
             }
         });
     }
@@ -215,6 +236,7 @@ public class Controller {
                 }
                 imageView.setImage(convolutionFilter.filterImage(imageView.getImage()));
                 isSaved = false;
+                reverseMenuItem.setDisable(false);
             }
         });
     }
