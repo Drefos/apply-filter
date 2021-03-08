@@ -10,21 +10,27 @@ import model.Filter;
 import java.util.Arrays;
 import java.util.Collection;
 
-public abstract class AbstractConvolutionFilter implements Filter {
+public class ConvolutionFilter implements Filter {
     public static final String BLUR = "Blur";
     public static final String GAUSSIAN = "Gaussian blur";
     public static final String SHARPEN = "Sharpen";
     public static final String EDGE = "Horizontal edge detection";
     public static final String EMBOSS = "Emboss";
 
-    protected Kernel kernel;
-    protected double off;
-    protected double divisor;
-    protected int imgWidth;
-    protected int imgHeight;
+    private final Kernel kernel;
+    private final double off;
+    private final double divisor;
+    private int imgWidth;
+    private int imgHeight;
 
     public static Collection<String> getFiltersNames() {
         return Arrays.asList(BLUR, GAUSSIAN, SHARPEN, EDGE, EMBOSS);
+    }
+
+    public ConvolutionFilter(Kernel kernel, double off, double divisor) {
+        this.kernel = kernel;
+        this.off = off;
+        this.divisor = divisor;
     }
 
     public Image filterImage(Image oldImage) {
