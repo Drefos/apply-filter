@@ -13,6 +13,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.Filter;
+import model.FilterDB;
 import model.convolutionFilters.*;
 import model.functionFilters.*;
 
@@ -83,6 +85,7 @@ public class Controller {
     private boolean isSaved = true;
     private static Stage stage;
     private Image savedImg;
+    private FilterDB filtersDB;
 
     public static void setStage(Stage s) {
         stage = s;
@@ -92,8 +95,7 @@ public class Controller {
     public void initialize() {
         preConfig();
         configMenu();
-        configFunctionFilters();
-        configConvolutionFilters();
+        configFilters();
     }
 
     private void preConfig() {
@@ -197,29 +199,24 @@ public class Controller {
         reverseMenuItem.setDisable(true);
     }
 
-    private void configFunctionFilters() {
-        functionFilterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                AbstractFunctionFilter functionFilter = new IdentityFunctionFilter();
-                if (inversionRadioButton.isSelected()) {
-                    functionFilter = new InverseFunctionFilter();
-                } else if (brightnessRadioButton.isSelected()) {
-                    functionFilter = new BrightnessFunctionFilter();
-                } else if (contrastRadioButton.isSelected()) {
-                    functionFilter = new ContrastFunctionFilter();
-                } else if (gammaRadioButton.isSelected()) {
-                    functionFilter = new GammaFunctionFilter();
-                }
-                imageView.setImage(functionFilter.filterImage(imageView.getImage()));
-                isSaved = false;
-                reverseMenuItem.setDisable(false);
-            }
-        });
+    private void configFilters() {
+        createFiltersDB();
     }
 
-    private void configConvolutionFilters() {
-        convolutionFilterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    private void createFiltersDB() {
+        filtersDB = new FilterDB();
+        filtersDB.addFilter(AbstractFunctionFilter.INVERSE, new InverseFunctionFilter());
+        filtersDB.addFilter(AbstractFunctionFilter.BRIGHTNESS, new BrightnessFunctionFilter());
+        filtersDB.addFilter(AbstractFunctionFilter.CONTRAST, new ContrastFunctionFilter());
+        filtersDB.addFilter(AbstractFunctionFilter.GAMMA, new GammaFunctionFilter());
+
+        filtersDB.addFilter(ConvolutionFilter.BLUR, new ConvolutionFilter(Kernel.getBlurKernel(), 0, 9));
+        filtersDB.addFilter(ConvolutionFilter.GAUSSIAN, new ConvolutionFilter(Kernel.getGaussianBlurKernel(), 0, 8));
+        filtersDB.addFilter(ConvolutionFilter.SHARPEN, new ConvolutionFilter(Kernel.getSharpenKernel(), 0, 1));
+        filtersDB.addFilter(ConvolutionFilter.EDGE, new ConvolutionFilter(Kernel.getEdgeKernel(), 0.5, 1));
+        filtersDB.addFilter(ConvolutionFilter.EMBOSS, new ConvolutionFilter(Kernel.getEmbossKernel(), 0, 1));
+    }
+
             @Override
             public void handle(MouseEvent event) {
                 AbstractConvolutionFilter convolutionFilter = new IdentityConvolutionFilter();
