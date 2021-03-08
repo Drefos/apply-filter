@@ -44,40 +44,13 @@ public class Controller {
     private ImageView imageView;
 
     @FXML
-    private RadioButton inversionRadioButton;
-
-    @FXML
-    private ToggleGroup function;
-
-    @FXML
-    private RadioButton brightnessRadioButton;
-
-    @FXML
-    private RadioButton contrastRadioButton;
-
-    @FXML
-    private RadioButton gammaRadioButton;
+    private ChoiceBox<String> functionFilterChoiceBox;
 
     @FXML
     private Button functionFilterButton;
 
     @FXML
-    private RadioButton blurRadioButton;
-
-    @FXML
-    private ToggleGroup convolution;
-
-    @FXML
-    private RadioButton gaussianRadioButton;
-
-    @FXML
-    private RadioButton sharpenRadioButton;
-
-    @FXML
-    private RadioButton edgeRadioButton;
-
-    @FXML
-    private RadioButton embossRadioButton;
+    private ChoiceBox<String> convolutionFilterChoiceBox;
 
     @FXML
     private Button convolutionFilterButton;
@@ -200,7 +173,13 @@ public class Controller {
     }
 
     private void configFilters() {
+        functionFilterChoiceBox.getItems().addAll(AbstractFunctionFilter.getFiltersNames());
+        functionFilterChoiceBox.setValue(AbstractFunctionFilter.INVERSE);
+        convolutionFilterChoiceBox.getItems().addAll( ConvolutionFilter.getFiltersNames());
+        convolutionFilterChoiceBox.setValue(ConvolutionFilter.BLUR);
         createFiltersDB();
+        clickHandling(functionFilterButton, functionFilterChoiceBox);
+        clickHandling(convolutionFilterButton, convolutionFilterChoiceBox);
     }
 
     private void createFiltersDB() {
@@ -217,21 +196,12 @@ public class Controller {
         filtersDB.addFilter(ConvolutionFilter.EMBOSS, new ConvolutionFilter(Kernel.getEmbossKernel(), 0, 1));
     }
 
+    private void clickHandling(Button filterButton, ChoiceBox<String> filterChoiceBox) {
+        filterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                AbstractConvolutionFilter convolutionFilter = new IdentityConvolutionFilter();
-                if (blurRadioButton.isSelected()) {
-                    convolutionFilter = new BlurConvolutionFilter();
-                } else if (gaussianRadioButton.isSelected()) {
-                    convolutionFilter = new GBlurConvolutionFilter();
-                } else if (sharpenRadioButton.isSelected()) {
-                    convolutionFilter = new SharpenConvolutionFilter();
-                } else if (edgeRadioButton.isSelected()) {
-                    convolutionFilter = new HEdgeDetectionConvolutionFilter();
-                } else if (embossRadioButton.isSelected()) {
-                    convolutionFilter = new EmbossConvolutionFilter();
-                }
-                imageView.setImage(convolutionFilter.filterImage(imageView.getImage()));
+                Filter functionFilter = filtersDB.getByName(filterChoiceBox.getValue());
+                imageView.setImage(functionFilter.filterImage(imageView.getImage()));
                 isSaved = false;
                 reverseMenuItem.setDisable(false);
             }

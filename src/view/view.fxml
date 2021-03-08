@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="750.0" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
    <top>
@@ -44,29 +33,11 @@
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <RadioButton fx:id="inversionRadioButton" mnemonicParsing="false" selected="true" text="Inversion">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="function" />
-                     </toggleGroup>
+                  <ChoiceBox fx:id="functionFilterChoiceBox" prefWidth="150.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="brightnessRadioButton" mnemonicParsing="false" text="Brightness correction" toggleGroup="$function">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="contrastRadioButton" mnemonicParsing="false" text="Contrast enhancement" toggleGroup="$function">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="gammaRadioButton" mnemonicParsing="false" text="Gamma correction" toggleGroup="$function">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </RadioButton>
+                  </ChoiceBox>
                   <Button fx:id="functionFilterButton" mnemonicParsing="false" text="Apply filters">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
@@ -82,34 +53,11 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <RadioButton fx:id="blurRadioButton" mnemonicParsing="false" selected="true" text="Blur">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="convolution" />
-                     </toggleGroup>
+                  <ChoiceBox fx:id="convolutionFilterChoiceBox" prefWidth="150.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="gaussianRadioButton" mnemonicParsing="false" text="Gaussian blur" toggleGroup="$convolution">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="sharpenRadioButton" mnemonicParsing="false" text="Sharpen" toggleGroup="$convolution">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="edgeRadioButton" mnemonicParsing="false" text="Edge detection" toggleGroup="$convolution">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="embossRadioButton" mnemonicParsing="false" text="Emboss" toggleGroup="$convolution">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </RadioButton>
+                  </ChoiceBox>
                   <Button fx:id="convolutionFilterButton" mnemonicParsing="false" text="Apply filters" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
