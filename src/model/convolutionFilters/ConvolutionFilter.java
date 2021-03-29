@@ -17,8 +17,8 @@ public class ConvolutionFilter implements Filter {
     public static final String EDGE = "Horizontal edge detection";
     public static final String EMBOSS = "Emboss";
 
-    private final Kernel kernel;
-    private final double off;
+    public final Kernel kernel;
+    public final double off;
     private final double divisor;
     private int imgWidth;
     private int imgHeight;
@@ -33,14 +33,15 @@ public class ConvolutionFilter implements Filter {
         this.divisor = divisor;
     }
 
+    @Override
     public Image filterImage(Image oldImage) {
         this.imgWidth = (int) oldImage.getWidth();
         this.imgHeight = (int) oldImage.getHeight();
         WritableImage newImage = new WritableImage(imgWidth, imgHeight);
         PixelWriter writer = newImage.getPixelWriter();
         PixelReader reader = oldImage.getPixelReader();
-        for (int y = 0; y < oldImage.getHeight(); y++) {
-            for (int x = 0; x < oldImage.getWidth(); x++) {
+        for (int y = 0; y < imgHeight; y++) {
+            for (int x = 0; x < imgWidth; x++) {
                 writer.setColor(x, y, calculateColor(x, y, reader));
             }
         }

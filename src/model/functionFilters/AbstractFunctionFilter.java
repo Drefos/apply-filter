@@ -21,6 +21,7 @@ public abstract class AbstractFunctionFilter implements Filter {
         return Arrays.asList(INVERSE, BRIGHTNESS, CONTRAST, GAMMA);
     }
 
+    @Override
     public Image filterImage(Image oldImage) {
         WritableImage newImage = new WritableImage((int)oldImage.getWidth(), (int)oldImage.getHeight());
         PixelWriter writer = newImage.getPixelWriter();
